@@ -51,4 +51,4 @@ export default function StackNavigation() {
 
     </Stack.Navigator>
   );
-}
+}git push
