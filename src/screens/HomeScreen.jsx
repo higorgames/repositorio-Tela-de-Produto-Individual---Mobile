@@ -1,13 +1,54 @@
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
+  const monstera = {
+    nome: "Monstera Deliciosa",
+    preco: "R$ 89,90",
+    imagem:
+      "https://images.unsplash.com/photo-1545241047-6083a3684587",
+    descricao:
+      "A Monstera Deliciosa é uma planta tropical conhecida por suas folhas grandes e características. É uma ótima opção para trazer mais vida e beleza para ambientes internos.",
+    quantidade: 10,
+  };
+
+  const rosaDoDeserto = {
+    nome: "Rosa do Deserto",
+    preco: "R$ 109,90",
+    imagem:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPYvaOAkyxl-ZKAKfHtl8PIvkPj1DhdbESvMOpkJ9_0A&s=10",
+    descricao:
+      "A Rosa do Deserto é uma planta ornamental conhecida por suas belas flores e seu caule marcante. Gosta de bastante luz e pode ser cultivada em vasos.",
+    quantidade: 6,
+  };
+
+  function abrirProduto(produto) {
+    navigation.navigate("Produto", {
+      produto: produto,
+    });
+  }
+
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.welcome}> Olá, visitante! </Text>
-      <Text style={styles.subtitle}> Encontre a planta perfeita para o seu lar. </Text>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.content}
+    >
+      <Text style={styles.welcome}>
+        Olá, visitante!
+      </Text>
+
+      <Text style={styles.subtitle}>
+        Encontre a planta perfeita para o seu lar.
+      </Text>
+
       <Image
         source={{
-          uri: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735"
+          uri: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735",
         }}
         style={styles.banner}
       />
@@ -16,41 +57,51 @@ export default function HomeScreen() {
         Produtos Populares
       </Text>
 
-       <View style={styles.card}>
+      <TouchableOpacity
+        style={styles.card}
+        activeOpacity={0.8}
+        onPress={() => abrirProduto(monstera)}
+      >
         <Image
-          source={{
-            uri: "https://images.unsplash.com/photo-1545241047-6083a3684587"
-          }}
+          source={{ uri: monstera.imagem }}
           style={styles.cardImage}
         />
 
         <Text style={styles.plantName}>
-          Monstera Deliciosa
+          {monstera.nome}
         </Text>
 
         <Text style={styles.price}>
-          R$ 89,90
+          {monstera.preco}
         </Text>
-      </View>
 
-      <View style={styles.card}>
+        <Text style={styles.details}>
+          Toque para ver detalhes
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.card}
+        activeOpacity={0.8}
+        onPress={() => abrirProduto(rosaDoDeserto)}
+      >
         <Image
-          source={{
-            uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPYvaOAkyxl-ZKAKfHtl8PIvkPj1DhdbESvMOpkJ9_0A&s=10"
-          }}
+          source={{ uri: rosaDoDeserto.imagem }}
           style={styles.cardImage}
         />
 
         <Text style={styles.plantName}>
-          Rosa do deserto
+          {rosaDoDeserto.nome}
         </Text>
 
         <Text style={styles.price}>
-          R$ 109,90
+          {rosaDoDeserto.preco}
         </Text>
-      </View>
 
-
+        <Text style={styles.details}>
+          Toque para ver detalhes
+        </Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 }
@@ -58,8 +109,12 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#FFFFFF",
+  },
+
+  content: {
     padding: 20,
+    paddingBottom: 40,
   },
 
   welcome: {
@@ -107,12 +162,19 @@ const styles = StyleSheet.create({
   plantName: {
     fontSize: 18,
     fontWeight: "bold",
+    color: "#222222",
   },
 
   price: {
     fontSize: 16,
+    fontWeight: "bold",
     color: "#4A5D23",
     marginTop: 5,
-  }
+  },
 
+  details: {
+    fontSize: 13,
+    color: "#777777",
+    marginTop: 8,
+  },
 });
